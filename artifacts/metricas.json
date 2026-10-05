@@ -1,0 +1,29 @@
+{
+  "modelo": "LinearRegression",
+  "dataset": "data/dolar_brl_sintetico.csv",
+  "sha256_dataset": "8c8231bc241a46ab8356e3c42bf0794035f7e7554c8f507c3941e40874670e4f",
+  "dados_sinteticos": true,
+  "janela": 5,
+  "registros_csv": 783,
+  "amostras_treino": 622,
+  "amostras_teste": 156,
+  "periodo_alvos_treino": [
+    "2023-01-09",
+    "2025-05-27"
+  ],
+  "periodo_alvos_teste": [
+    "2025-05-28",
+    "2025-12-31"
+  ],
+  "avaliacao": "Próxima observação, usando os 5 fechamentos reais anteriores; sem embaralhar.",
+  "mae_brl": 0.025430237420387664,
+  "rmse_brl": 0.03159222320486232,
+  "mae_baseline_brl": 0.025530128205128174,
+  "versoes": {
+    "python": "3.12.15",
+    "scikit_learn": "1.6.1",
+    "numpy": "2.2.3",
+    "joblib": "1.4.2"
+  },
+  "recarga_validada": true
+}

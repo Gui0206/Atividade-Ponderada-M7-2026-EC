@@ -1,0 +1,28 @@
+{
+  "arquivo": "dolar_brl_sintetico.csv",
+  "natureza": "Dados sintéticos; não são cotações históricas reais.",
+  "origem": "Script Python elaborado com auxílio de LLM, sem consulta a mercado.",
+  "par": "USD/BRL",
+  "unidade": "Reais brasileiros por 1 dólar americano",
+  "inicio": "2023-01-02",
+  "fim": "2025-12-31",
+  "registros": 783,
+  "frequencia": "Segunda a sexta; feriados não são excluídos.",
+  "formato": "UTF-8, separador vírgula, decimal ponto, data ISO 8601",
+  "colunas": {
+    "data": "Data da observação",
+    "fechamento": "Cotação de fechamento fictícia em BRL/USD"
+  },
+  "seed": 2026,
+  "parametros": {
+    "preco_inicial": 5.2,
+    "amplitude_referencia": 0.35,
+    "periodo_observacoes": 400,
+    "reversao_media": 0.02,
+    "persistencia_retorno": 0.1,
+    "desvio_ruido": 0.006
+  },
+  "horizonte_proposto": "Fechamento da próxima linha: próximo dia de segunda a sexta, inclusive feriados.",
+  "treinamento_proposto": "Usar os últimos 5 fechamentos conhecidos para prever o seguinte; separar treino e teste cronologicamente, sem embaralhar.",
+  "limitacao": "Série artificial para demonstrar a integração; não serve para validar previsões financeiras reais."
+}

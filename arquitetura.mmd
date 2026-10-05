@@ -1,0 +1,25 @@
+flowchart LR
+    dados["«artifact» CSV sintético USD/BRL<br/>data, fechamento"]
+
+    subgraph treino["«executionEnvironment» Container de treinamento"]
+        preparar["«component» Preparação dos dados<br/>Janelas de 5 fechamentos → próximo fechamento<br/>Divisão cronológica: treino e teste"]
+        treinar["«component» Python / scikit-learn<br/>Treinar e avaliar modelo"]
+        exportar["«component» Exportação com joblib<br/>Modelo e configuração das entradas"]
+        preparar --> treinar --> exportar
+    end
+
+    modelo["«artifact» ./artifacts/modelo.joblib<br/>Pasta compartilhada no host"]
+
+    subgraph inferencia["«executionEnvironment» Container de inferência / backend"]
+        carregar["«component» Carregador Python<br/>Lê /app/artifacts/modelo.joblib na inicialização"]
+        api["«component» API Python / FastAPI<br/>GET /health — estado do serviço<br/>POST /predict — previsão"]
+        carregar -->|Modelo em memória| api
+    end
+
+    cliente["«component» Cliente via terminal<br/>Comandos curl"]
+    dados -->|Leitura do histórico| preparar
+    exportar -->|Grava em /app/artifacts<br/>bind mount de ./artifacts com escrita| modelo
+    modelo -->|bind mount ./artifacts:/app/artifacts:ro<br/>Iniciar backend após exportação| carregar
+    cliente -->|HTTP POST /predict<br/>JSON: últimos 5 fechamentos em ordem cronológica| api
+    api -->|JSON: fechamento previsto em BRL/USD<br/>para a próxima observação| cliente
+    cliente -->|HTTP GET /health| api
